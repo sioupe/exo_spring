@@ -40,8 +40,8 @@ public class VilleControleur {
         return ResponseEntity.ok("success");
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteVille(int id) {
+    @DeleteMapping()
+    public ResponseEntity<String> deleteVille(@RequestParam int id) {
         if (!villes.existID(id)) {
             return ResponseEntity.badRequest().body("Ville does not exist");
         }

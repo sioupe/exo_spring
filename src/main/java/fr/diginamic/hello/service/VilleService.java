@@ -38,8 +38,9 @@ public class VilleService {
     }
     public void update(Ville ville) {
         for (Ville v : villes) {
-            if (ville.equals(v)) {
-                villes.set(villes.indexOf(v), ville);
+            if (v.getId() == ville.getId()) {
+                villes.remove(v);
+                villes.add(ville);
             }
         }
     }
