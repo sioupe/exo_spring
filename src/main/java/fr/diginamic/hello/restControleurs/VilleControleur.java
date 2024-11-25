@@ -31,6 +31,14 @@ public class VilleControleur {
         villes.addVille(ville);
         return ResponseEntity.ok("success");
     }
+    @PutMapping
+    public ResponseEntity<String> updateVille(@RequestBody Ville ville) {
+        if (!villes.existID(ville.getId())) {
+            return ResponseEntity.badRequest().body("Ville does not exist");
+        }
+        villes.update(ville);
+        return ResponseEntity.ok("success");
+    }
 
 
 }
