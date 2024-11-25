@@ -3,11 +3,9 @@ package fr.diginamic.hello.restControleurs;
 import fr.diginamic.hello.entite.Ville;
 import fr.diginamic.hello.service.VilleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,4 +18,14 @@ public class VilleControleur {
     public List<Ville> getVilles(){
         return villes.findAll();
     }
+    @PostMapping
+    public ResponseEntity<String> insertVille(@RequestBody Ville ville) {
+
+        if (villes.exist(ville)) {
+            return ResponseEntity.badRequest().body("Ville already exists");
+        }
+        villes.addVille(ville);
+        return ResponseEntity.ok("success");
+    }
+
 }

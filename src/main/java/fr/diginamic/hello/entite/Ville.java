@@ -1,5 +1,7 @@
 package fr.diginamic.hello.entite;
 
+import java.util.Objects;
+
 public class Ville {
     private String nom;
     private int nbHabitants;
@@ -54,5 +56,23 @@ public class Ville {
 
     public void setNbHabitants(int nbHabitants) {
         this.nbHabitants = nbHabitants;
+    }
+
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Ville ville)) return false;
+        return nbHabitants == ville.nbHabitants && Objects.equals(nom, ville.nom);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom, nbHabitants);
     }
 }
