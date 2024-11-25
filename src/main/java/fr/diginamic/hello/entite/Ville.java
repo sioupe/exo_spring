@@ -1,8 +1,12 @@
 package fr.diginamic.hello.entite;
 
+import jakarta.validation.constraints.Min;
+
 import java.util.Objects;
 
 public class Ville {
+    private static int idCounter =1;
+    @Min(1)
     int id;
     private String nom;
     private int nbHabitants;
@@ -14,6 +18,13 @@ public class Ville {
      */
     public Ville(int id, String nom, int nbHabitants) {
         this.id = id;
+        this.nom = nom;
+        this.nbHabitants = nbHabitants;
+        idCounter++;
+    }
+
+    public Ville(String nom, int nbHabitants) {
+        this.id=idCounter++;
         this.nom = nom;
         this.nbHabitants = nbHabitants;
     }
