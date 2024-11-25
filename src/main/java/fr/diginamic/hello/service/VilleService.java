@@ -43,6 +43,11 @@ public class VilleService {
             }
         }
     }
+    public void delete(int id) {
+        villes.removeIf(ville -> ville.getId() == id);
+    }
+
+
     public boolean existID(int id) {
         for (Ville v : villes) {
             if (v.getId() == id) {
@@ -53,18 +58,10 @@ public class VilleService {
     }
 
 
-    /**
-     * Getter
-     *
-     * @return villes
-     */
 
-    public List<Ville> getVilles() {
-        return villes;
-    }
 
     /**
-     * Setter
+     * rajoute une ville dans la liste de ville
      *
      * @param ville ville
      */
