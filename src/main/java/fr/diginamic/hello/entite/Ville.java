@@ -1,12 +1,17 @@
 package fr.diginamic.hello.entite;
 
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.util.Objects;
 
+@Entity (name = "ville")
 public class Ville {
     private static int idCounter =1;
-    @Min(1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     private String nom;
     private int nbHabitants;
@@ -27,6 +32,10 @@ public class Ville {
         this.id=idCounter++;
         this.nom = nom;
         this.nbHabitants = nbHabitants;
+    }
+
+    public Ville() {
+
     }
 
     /**
