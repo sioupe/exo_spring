@@ -36,6 +36,14 @@ public class VilleService {
         }
         return false;
     }
+    public boolean existID(int id) {
+        for (Ville v : villes) {
+            if (v.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /**

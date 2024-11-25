@@ -25,11 +25,12 @@ public class VilleControleur {
     @PostMapping
     public ResponseEntity<String> insertVille(@RequestBody Ville ville) {
 
-        if (villes.exist(ville)) {
+        if (villes.existID(ville.getId())) {
             return ResponseEntity.badRequest().body("Ville already exists");
         }
         villes.addVille(ville);
         return ResponseEntity.ok("success");
     }
+
 
 }
