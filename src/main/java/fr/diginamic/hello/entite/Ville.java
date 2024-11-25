@@ -3,6 +3,7 @@ package fr.diginamic.hello.entite;
 import java.util.Objects;
 
 public class Ville {
+    int id;
     private String nom;
     private int nbHabitants;
 
@@ -11,9 +12,31 @@ public class Ville {
      * @param nom
      * @param nbHabitants
      */
-    public Ville(String nom, int nbHabitants) {
+    public Ville(int id, String nom, int nbHabitants) {
+        this.id = id;
         this.nom = nom;
         this.nbHabitants = nbHabitants;
+    }
+
+    /**
+     * Getter
+     *
+     * @return id
+     */
+
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter
+     *
+     * @param id id
+     */
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

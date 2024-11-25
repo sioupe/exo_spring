@@ -18,6 +18,10 @@ public class VilleControleur {
     public List<Ville> getVilles(){
         return villes.findAll();
     }
+    @GetMapping(path="/idVille")
+    public Ville getVilleId(@RequestParam int id){
+        return villes.findById(id);
+    }
     @PostMapping
     public ResponseEntity<String> insertVille(@RequestBody Ville ville) {
 

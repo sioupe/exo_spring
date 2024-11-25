@@ -12,15 +12,22 @@ public class VilleService {
 
     public VilleService(List<Ville> villes) {
         this.villes = villes;
-        this.villes.add(new Ville("Montpellier",10000));
-        this.villes.add(new Ville("Marseille",5000));
+        this.villes.add(new Ville(1,"Montpellier",10000));
+        this.villes.add(new Ville(2,"Marseille",5000));
     }
 
     public List<Ville> findAll() {
 
         return villes;
     }
-
+    public Ville findById(int id) {
+        for (Ville ville : villes) {
+            if (ville.getId() == id) {
+                return ville;
+            }
+        }
+        return null;
+    }
     public boolean exist(Ville ville) {
         for (Ville v : villes) {
             if (ville.equals(v)) {
@@ -29,6 +36,7 @@ public class VilleService {
         }
         return false;
     }
+
 
     /**
      * Getter
