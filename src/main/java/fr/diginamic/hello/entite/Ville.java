@@ -1,35 +1,33 @@
 package fr.diginamic.hello.entite;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity (name = "ville")
 public class Ville {
-    private static int idCounter =1;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     int id;
+    @Column(name ="NOM")
     private String nom;
+    @Column(name ="NB_HABITANTS")
     private int nbHabitants;
+
+    public Ville(int id, String nom, int nbHabitants) {
+        this.id = id;
+        this.nom = nom;
+        this.nbHabitants = nbHabitants;
+    }
 
     /**
      * constructeur parametre
      * @param nom
      * @param nbHabitants
      */
-    public Ville(int id, String nom, int nbHabitants) {
-        this.id = id;
-        this.nom = nom;
-        this.nbHabitants = nbHabitants;
-        idCounter++;
-    }
 
     public Ville(String nom, int nbHabitants) {
-        this.id=idCounter++;
         this.nom = nom;
         this.nbHabitants = nbHabitants;
     }
@@ -91,11 +89,18 @@ public class Ville {
     }
 
     /**
+     *     copie les données d'une ville dans celle ci
+     */
+    public void switchDonne(Ville ville){
+        setNom(ville.getNom());
+        setNbHabitants(ville.getNbHabitants());
+    }
+
+    /**
      * Setter
      *
      * @param nbHabitants nbHabitants
      */
-
 
     public void setNbHabitants(int nbHabitants) {
         this.nbHabitants = nbHabitants;
@@ -117,5 +122,19 @@ public class Ville {
     @Override
     public int hashCode() {
         return Objects.hash(nom, nbHabitants);
+    }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Ville{");
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", nbHabitants=").append(nbHabitants);
+        sb.append("}\n");
+        return sb.toString();
     }
 }

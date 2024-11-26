@@ -16,37 +16,31 @@ public class VilleControleur {
 
     @GetMapping
     public List<Ville> getVilles(){
-        return villes.findAll();
+        return villes.extractVilles();
     }
-    @GetMapping(path="/idVille")
-    public Ville getVilleId(@RequestParam int id){
-        return villes.findById(id);
+    @GetMapping(path="/{id}")
+    public Ville getVilleId(@PathVariable ("id")@RequestParam int id){
+        return villes.extractVille(id);
     }
-    @PostMapping
-    public ResponseEntity<String> insertVille(@RequestBody Ville ville) {
+    @GetMapping(path="/nomVille/{nom}")
+    public Ville getVilleId(@PathVariable("nom")@RequestParam String nom){
+        return villes.extractVille(nom);
+    }
+   @PostMapping
+    public List<Ville> insertVille(@RequestBody Ville ville) {
+        return villes.ajouterVille(ville);
+    }
 
-        if (villes.existID(ville.getId())) {
-            return ResponseEntity.badRequest().body("Ville already exists");
-        }
-        villes.addVille(ville);
-        return ResponseEntity.ok("success");
-    }
     @PutMapping
-    public ResponseEntity<String> updateVille(@RequestBody Ville ville) {
-        if (!villes.existID(ville.getId())) {
-            return ResponseEntity.badRequest().body("Ville does not exist");
-        }
-        villes.update(ville);
-        return ResponseEntity.ok("success");
+    public List<Ville> updateVille(@RequestBody Ville ville) {
+        System.out.println("_______________________________________________________________");
+        System.out.println(ville.getId());
+        return villes.update(ville.getId(), ville);
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteVille(@RequestParam int id) {
-        if (!villes.existID(id)) {
-            return ResponseEntity.badRequest().body("Ville does not exist");
-        }
-        villes.delete(id);
-        return ResponseEntity.ok("succes");
+    public List<Ville> deleteVille(@RequestParam int id) {
+       return villes.delete(id);
     }
 
 
