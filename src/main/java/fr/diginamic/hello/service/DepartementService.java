@@ -18,8 +18,8 @@ public class DepartementService {
         return departementDao.findAll();
     }
 
-    public List<Ville> getPlusGrandDepartement(int nombreVille) {
-        List<Ville> listVille = departementDao.findAllVilles();
+    public List<Ville> getPlusGrandDepartement(int nombreVille,Departement departement) {
+        List<Ville> listVille = departementDao.findAllVilles(departement);
         List<Ville> plusGrandesVilles = new ArrayList<Ville>();
         for (int i = 0; i < nombreVille; i++) {
             Ville villeTampon = new Ville("",0);

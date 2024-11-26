@@ -17,8 +17,8 @@ public class DepartementDao {
     public List<Departement> findAll() {
         return em.createQuery("from departement", Departement.class).getResultList();
     }
-    public List<Ville> findAllVilles() {
-        return em.createQuery("from ville", Ville.class).getResultList();
+    public List<Ville> findAllVilles(Departement departement) {
+        return em.createQuery("select v from ville v WHERE v.departement=departement ", Ville.class).getResultList();
     }
 
     public Departement findById(int id) {
