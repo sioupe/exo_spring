@@ -123,6 +123,7 @@ public class Ville {
      * @param departement departement
      */
     public void setDepartement(Departement departement) {
+        departement.getVilles().remove(this);
         this.departement = departement;
         departement.getVilles().add(this);
     }
