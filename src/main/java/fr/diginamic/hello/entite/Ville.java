@@ -18,10 +18,11 @@ public class Ville {
     @JoinColumn(name="ID_DEPARTEMENT")
     private Departement departement;
 
-    public Ville(int id, String nom, int nbHabitants) {
+    public Ville(int id, String nom, int nbHabitants,Departement departement) {
         this.id = id;
         this.nom = nom;
         this.nbHabitants = nbHabitants;
+        setDepartement(departement);
     }
 
     /**
@@ -109,6 +110,22 @@ public class Ville {
         this.nbHabitants = nbHabitants;
     }
 
+    /**
+     * get la valeur du depoartement
+     * @return departement
+     */
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    /**
+     * set la valeur du departement
+     * @param departement departement
+     */
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+        departement.getVilles().add(this);
+    }
     /**
      * methode equals permet de verifier l'egalite entre differente instance
      */

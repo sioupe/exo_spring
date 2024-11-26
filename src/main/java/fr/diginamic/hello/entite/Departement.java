@@ -27,8 +27,19 @@ public class Departement {
     /**
      * Getter
      *
+     * @return villes
+     */
+
+    public List<Ville> getVilles() {
+        return villes;
+    }
+
+    /**
+     * Getter
+     *
      * @return id
      */
+
 
     public int getId() {
         return id;
