@@ -1,8 +1,10 @@
 package fr.diginamic.hello.service;
 
+import fr.diginamic.hello.Dao.DepartementDao;
 import fr.diginamic.hello.Dao.VilleDao;
 import fr.diginamic.hello.entite.Ville;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class VilleService {
     @Autowired
     VilleDao villeDao;
+    @Autowired
+    DepartementDao departementDao;
 
     public List<Ville> extractVilles  () {
         return villeDao.extractAll();
@@ -26,7 +30,12 @@ public class VilleService {
     }
 
     public List<Ville> ajouterVille(Ville ville) {
-        villeDao.insertVille(ville);
+        if (ville.getDepartement() != null) {
+            if (departementDao.findById(ville.getDepartement().getId()) == null) {
+                departementDao.insert(ville.getDepartement());
+            }
+            villeDao.insertVille(ville);
+        }
        return villeDao.extractAll();
     }
 

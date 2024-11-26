@@ -5,6 +5,7 @@ import fr.diginamic.hello.entite.Ville;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,16 +26,17 @@ public class DepartementDao {
         return em.createQuery("FROM departement WHERE nom= departement.nom", Departement.class).getSingleResult();
 
     }
+    @Transactional
     public void insert(Departement departement) {
         em.persist(departement);
     }
-
+    @Transactional
     public void update(Departement ancienDepartement ,Departement nouveauDepartement) {
         delete(ancienDepartement);
         ancienDepartement.switchDonne(nouveauDepartement);
         insert(ancienDepartement);
     }
-
+    @Transactional
     public void delete(Departement departement) {
         em.remove(departement);
     }

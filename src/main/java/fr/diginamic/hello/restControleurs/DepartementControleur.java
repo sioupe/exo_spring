@@ -22,7 +22,7 @@ public class DepartementControleur {
     public Departement getDepartementById(@PathVariable("id")@RequestParam int id) {
         return departementService.getDepartementById(id);
     }
-    @GetMapping
+    @GetMapping(path = "/{nom}")
     public Departement getDepartementByName(@PathVariable("nom") @RequestParam String name) {
         return departementService.getDepartementByName(name);
     }

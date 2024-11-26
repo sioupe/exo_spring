@@ -44,6 +44,9 @@ public class VilleDao {
      */
     @Transactional
     public void insertVille(Ville ville){
+        if (ville.getDepartement() != null) {
+            ;
+        }
         em.persist(ville);
     }
 

@@ -24,6 +24,11 @@ public class Departement {
     public Departement() {
     }
 
+    public Departement(String nom, String codePostal) {
+        this.nom = nom;
+        this.codePostal = codePostal;
+    }
+
     /**
      * Getter
      *
