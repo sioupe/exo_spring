@@ -1,9 +1,8 @@
 package fr.diginamic.hello.service;
 
-import fr.diginamic.hello.VilleDao;
+import fr.diginamic.hello.Dao.VilleDao;
 import fr.diginamic.hello.entite.Ville;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

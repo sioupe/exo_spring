@@ -1,4 +1,4 @@
-package fr.diginamic.hello;
+package fr.diginamic.hello.Dao;
 
 import fr.diginamic.hello.entite.Ville;
 import jakarta.persistence.EntityManager;

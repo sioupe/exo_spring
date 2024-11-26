@@ -33,8 +33,6 @@ public class VilleControleur {
 
     @PutMapping
     public List<Ville> updateVille(@RequestBody Ville ville) {
-        System.out.println("_______________________________________________________________");
-        System.out.println(ville.getId());
         return villes.update(ville.getId(), ville);
     }
 
