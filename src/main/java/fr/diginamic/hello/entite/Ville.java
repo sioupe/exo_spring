@@ -18,6 +18,7 @@ public class Ville {
     @JoinColumn(name="ID_DEPARTEMENT")
     private Departement departement;
 
+
     public Ville(int id, String nom, int nbHabitants,Departement departement) {
         this.id = id;
         this.nom = nom;
