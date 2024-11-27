@@ -8,11 +8,8 @@ import java.util.List;
 public class Departement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="ID")
     int id;
-    @Column(name ="NOM")
     String nom;
-    @Column(name ="CODE_POSTAL")
     String codePostal;
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     List<Ville> villes;

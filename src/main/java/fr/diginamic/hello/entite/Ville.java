@@ -8,11 +8,8 @@ import java.util.Objects;
 public class Ville {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="ID")
     int id;
-    @Column(name ="NOM")
     private String nom;
-    @Column(name ="NB_HABITANTS")
     private int nbHabitants;
     @ManyToOne
     @JoinColumn(name="ID_DEPARTEMENT")
