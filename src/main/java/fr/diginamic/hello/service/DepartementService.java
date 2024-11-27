@@ -1,6 +1,6 @@
 package fr.diginamic.hello.service;
 
-import fr.diginamic.hello.Dao.DepartementDao;
+import fr.diginamic.hello.Repository.DepartementRespository;
 import fr.diginamic.hello.entite.Departement;
 import fr.diginamic.hello.entite.Ville;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,14 @@ import java.util.List;
 @Service
 public class DepartementService {
     @Autowired
-    DepartementDao departementDao;
+    DepartementRespository departementRespository;
 
     public List<Departement> getAllDepartement() {
-        return departementDao.findAll();
+        return departementRespository.findAll();
     }
 
     public List<Ville> getPlusGrandDepartement(int nombreVille,Departement departement) {
-        List<Ville> listVille = departementDao.findAllVilles(departement);
+        List<Ville> listVille = departementRespository.findVillesByCodePostalEquals(departement.getCodePostal());
         List<Ville> plusGrandesVilles = new ArrayList<Ville>();
         for (int i = 0; i < nombreVille; i++) {
             Ville villeTampon = new Ville("",0);
@@ -34,21 +34,22 @@ public class DepartementService {
         return plusGrandesVilles;
     }
     public Departement getDepartementById(int id) {
-        return departementDao.findById(id);
+        return departementRespository.findById(id).orElse(null);
     }
     public Departement getDepartementByName(String name) {
-        return departementDao.findByNom(name);
+        return departementRespository.findByNom(name);
     }
     public List<Departement> ajouterDepartement(Departement departement) {
-        departementDao.insert(departement);
-        return departementDao.findAll();
+        departementRespository.save(departement);
+        return departementRespository.findAll();
     }
     public List<Departement> updateDepartement(int idDepartement, Departement departement) {
-        departementDao.update(departementDao.findById(idDepartement),departement);
-        return departementDao.findAll();
+        departementRespository.delete(departementRespository.findById(idDepartement).orElse(null));
+        departementRespository.save(departement);
+        return departementRespository.findAll();
     }
     public List<Departement> supprimerDepartement(int id) {
-        departementDao.delete(departementDao.findById(id));
-        return departementDao.findAll();
+        departementRespository.delete(departementRespository.findById(id).orElse(null));
+        return departementRespository.findAll();
     }
 }

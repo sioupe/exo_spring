@@ -1,7 +1,7 @@
 package fr.diginamic.hello.service;
 
-import fr.diginamic.hello.Dao.DepartementDao;
 import fr.diginamic.hello.Dto.VilleDto;
+import fr.diginamic.hello.Repository.DepartementRespository;
 import fr.diginamic.hello.Repository.VilleRespository;
 import fr.diginamic.hello.entite.Departement;
 import fr.diginamic.hello.entite.Ville;
@@ -20,9 +20,9 @@ import java.util.List;
 public class VilleService {
     @Autowired
     VilleRespository villeRepository;
-
     @Autowired
-    DepartementDao departementDao;
+    DepartementRespository departementRepository;
+
 
 
 
@@ -40,8 +40,8 @@ public class VilleService {
 
     public List<Ville> ajouterVille(Ville ville) {
         if (ville.getDepartement() != null) {
-            if (departementDao.findById(ville.getDepartement().getId()) == null) {
-                departementDao.insert(ville.getDepartement());
+            if (departementRepository.findById(ville.getDepartement().getId()) == null) {
+                departementRepository.save(ville.getDepartement());
             }
             villeRepository.save(ville);
         }
