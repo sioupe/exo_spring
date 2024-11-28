@@ -5,9 +5,12 @@ import fr.diginamic.hello.entite.Departement;
 import fr.diginamic.hello.entite.Ville;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class VilleMapper {
-    public VilleDto toDto(Ville ville) {
+    public static VilleDto toDto(Ville ville) {
         VilleDto dto = new VilleDto();
         dto.setCodeVille(ville.getId());
         dto.setNomVille(ville.getNom());
@@ -16,8 +19,15 @@ public class VilleMapper {
         dto.setNomDepartement(ville.getDepartement().getNom());
         return dto;
     }
+    public static List<VilleDto> toDto(List<Ville> villes) {
+        List<VilleDto> dtos = new ArrayList<>();
+        for (Ville ville : villes) {
+            dtos.add(toDto(ville));
+        }
+        return dtos;
+    }
 
-    public Ville toEntity(VilleDto dto) {
+    public static Ville toEntity(VilleDto dto) {
         Ville ville = new Ville();
         ville.setId(dto.getCodeVille());
         ville.setNom(dto.getNomVille());

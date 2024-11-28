@@ -16,35 +16,31 @@ import java.util.List;
 public class DepartementControleur {
     @Autowired
     private DepartementService departementService;
-    @Autowired
-    private DepartementMapper departementMapper;
+
 
     @GetMapping
     public List<DepartementDto> getDepartements() {
-        List<DepartementDto> departementDtos = new ArrayList<>();
-        for (Departement departement :departementService.getAllDepartement()){
-            departementDtos.add(departementMapper.toDto(departement));
-        }
-        return departementDtos;
+
+        return DepartementMapper.toDto(departementService.getAllDepartement());
     }
     @GetMapping(path = "/{id}")
     public DepartementDto getDepartementById(@PathVariable("id")@RequestParam int id) {
-        return departementMapper.toDto(departementService.getDepartementById(id));
+        return DepartementMapper.toDto(departementService.getDepartementById(id));
     }
     @GetMapping(path = "/{nom}")
     public DepartementDto getDepartementByName(@PathVariable("nom") @RequestParam String name) {
-        return departementMapper.toDto(departementService.getDepartementByName(name));
+        return DepartementMapper.toDto(departementService.getDepartementByName(name));
     }
     @PostMapping
-    public List<Departement> addDepartement(@RequestBody Departement departement) {
-        return departementService.ajouterDepartement(departement);
+    public List<DepartementDto> addDepartement(@RequestBody Departement departement) {
+        return DepartementMapper.toDto(departementService.ajouterDepartement(departement));
     }
     @PutMapping
-    List<Departement> updateDepartement(@RequestBody Departement nouveauDepartement) {
-        return departementService.updateDepartement(nouveauDepartement.getId(),nouveauDepartement);
+    List<DepartementDto> updateDepartement(@RequestBody Departement nouveauDepartement) {
+        return DepartementMapper.toDto(departementService.updateDepartement(nouveauDepartement.getId(),nouveauDepartement));
     }
     @DeleteMapping
-    public List<Departement> deleteDepartement(@RequestParam int id) {
-        return departementService.supprimerDepartement(id);
+    public List<DepartementDto> deleteDepartement(@RequestParam int id) {
+        return DepartementMapper.toDto(departementService.supprimerDepartement(id));
     }
 }
