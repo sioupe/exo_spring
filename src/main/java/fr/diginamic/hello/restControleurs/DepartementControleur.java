@@ -1,11 +1,14 @@
 package fr.diginamic.hello.restControleurs;
 
 import ch.qos.logback.core.Layout;
+import fr.diginamic.hello.Dto.DepartementDto;
 import fr.diginamic.hello.entite.Departement;
+import fr.diginamic.hello.mappers.DepartementMapper;
 import fr.diginamic.hello.service.DepartementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -13,18 +16,24 @@ import java.util.List;
 public class DepartementControleur {
     @Autowired
     private DepartementService departementService;
+    @Autowired
+    private DepartementMapper departementMapper;
 
     @GetMapping
-    public List<Departement> getDepartements() {
-        return departementService.getAllDepartement();
+    public List<DepartementDto> getDepartements() {
+        List<DepartementDto> departementDtos = new ArrayList<>();
+        for (Departement departement :departementService.getAllDepartement()){
+            departementDtos.add(departementMapper.toDto(departement));
+        }
+        return departementDtos;
     }
     @GetMapping(path = "/{id}")
-    public Departement getDepartementById(@PathVariable("id")@RequestParam int id) {
-        return departementService.getDepartementById(id);
+    public DepartementDto getDepartementById(@PathVariable("id")@RequestParam int id) {
+        return departementMapper.toDto(departementService.getDepartementById(id));
     }
     @GetMapping(path = "/{nom}")
-    public Departement getDepartementByName(@PathVariable("nom") @RequestParam String name) {
-        return departementService.getDepartementByName(name);
+    public DepartementDto getDepartementByName(@PathVariable("nom") @RequestParam String name) {
+        return departementMapper.toDto(departementService.getDepartementByName(name));
     }
     @PostMapping
     public List<Departement> addDepartement(@RequestBody Departement departement) {
