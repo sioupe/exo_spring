@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface VilleRespository extends JpaRepository<Ville, Integer> {
+
+
     Ville findByNom(String nom);
 
     List<Ville> findByNbHabitantsIsGreaterThan(int min);

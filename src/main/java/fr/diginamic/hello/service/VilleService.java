@@ -27,8 +27,11 @@ public class VilleService {
 
 
 
-    public List<Ville> extractVilles  () {
+    public List<Ville> extractVilles() {
         return villeRepository.findAll();
+    }
+    public List<Ville> extractVilles  (Pageable pageable) {
+        return villeRepository.findAll(pageable).getContent();
     }
 
     public Ville extractVille(int id) {
@@ -76,7 +79,6 @@ public class VilleService {
         return villeRepository.findByDepartementAndNbHabitantsBetween(departement,min,max);
     }
 
-    @GetMapping("/pagination")
     public List<Ville> trouverNPlusGrandeVille(Ville ville,int n) {
         Pageable pagination = PageRequest.of(0,n);
         return villeRepository.findByDepartementOrderByNbHabitantsDesc(ville.getDepartement(), pagination);
