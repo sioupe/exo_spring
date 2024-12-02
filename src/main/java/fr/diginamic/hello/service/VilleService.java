@@ -9,6 +9,7 @@ import fr.diginamic.hello.Repository.VilleRespository;
 import fr.diginamic.hello.entite.Departement;
 import fr.diginamic.hello.entite.Ville;
 
+import fr.diginamic.hello.exception.VilleException;
 import fr.diginamic.hello.mappers.VilleMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,15 @@ public class VilleService {
 
 
 
-    public List<Ville> extractVilles() {
-        return villeRepository.findAll();
+    public List<Ville> extractVilles() throws VilleException {
+
+        List<Ville> villes = villeRepository.findAll();
+        if (villes.isEmpty()) {
+            throw new VilleException("Villes not found");
+        }
+        return villes;
     }
+
     public List<Ville> extractVilles  (Pageable pageable) {
         return villeRepository.findAll(pageable).getContent();
     }
@@ -44,8 +51,12 @@ public class VilleService {
 
         return villeRepository.findById(id).orElse(null);
     }
-    public Ville extractVille(String nom) {
-        return villeRepository.findByNom(nom);
+    public Ville extractVille(String nom) throws VilleException {
+        Ville ville = villeRepository.findByNom(nom);
+        if (ville == null) {
+            throw new VilleException("Ville nom non valide");
+        }
+        return ville;
     }
 
     @Transactional
@@ -74,14 +85,23 @@ public class VilleService {
     public List<Ville> listVillePlusNbHabitant(int min){
         return villeRepository.findByNbHabitantsIsGreaterThan(min);
     }
-    public List<Ville> listVillePlusNbHabitantParDepartement(int min, Departement departement){
-        return villeRepository.findByDepartementAndNbHabitantsIsGreaterThan(departement,min);
+    public List<Ville> listVillePlusNbHabitantParDepartement(int min, Departement departement)throws VilleException {
+        List<Ville> villes = villeRepository.findByDepartementAndNbHabitantsIsGreaterThan(departement,min);
+
+        if (villes.isEmpty()) {
+            throw new VilleException("Villes not found");
+        }
+        return villes;
     }
 
     public List<Ville> listVilleNbHabitantComprisEntre(int min,int max){
         return villeRepository.findByNbHabitantsBetween(min,max);
     }
-    public List<Ville> listVilleNbHabitantComprisEntreParDepartement(int min,int max,Departement departement){
+    public List<Ville> listVilleNbHabitantComprisEntreParDepartement(int min,int max,Departement departement) throws VilleException {
+        List<Ville> villes = villeRepository.findByDepartementAndNbHabitantsBetween(departement,min,max);
+        if (villes.isEmpty()) {
+            throw new VilleException("Villes not found");
+        }
         return villeRepository.findByDepartementAndNbHabitantsBetween(departement,min,max);
     }
 

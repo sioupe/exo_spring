@@ -19,6 +19,7 @@ public interface VilleRespository extends JpaRepository<Ville, Integer> {
 
     List<Ville> findByDepartementAndNbHabitantsIsGreaterThan(Departement departement, int nbHabitants);
 
+
     List<Ville> findByDepartementAndNbHabitantsBetween(Departement departement, int min, int max);
 
     List<Ville> findByDepartementOrderByNbHabitantsDesc(Departement departement, Pageable pageable);
