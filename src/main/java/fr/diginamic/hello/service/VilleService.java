@@ -1,11 +1,16 @@
 package fr.diginamic.hello.service;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 import fr.diginamic.hello.Dto.VilleDto;
 import fr.diginamic.hello.Repository.DepartementRespository;
 import fr.diginamic.hello.Repository.VilleRespository;
 import fr.diginamic.hello.entite.Departement;
 import fr.diginamic.hello.entite.Ville;
 
+import fr.diginamic.hello.mappers.VilleMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -82,6 +88,24 @@ public class VilleService {
     public List<Ville> trouverNPlusGrandeVille(Ville ville,int n) {
         Pageable pagination = PageRequest.of(0,n);
         return villeRepository.findByDepartementOrderByNbHabitantsDesc(ville.getDepartement(), pagination);
+    }
+
+    public void telechargerEnPdf(HttpServletResponse response,List<VilleDto> villes) throws IOException, DocumentException {
+
+        response.setHeader("Content-Disposition","attachment; filename=villes.pdf");
+
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document,response.getOutputStream());
+        document.open();
+        document.addTitle("villes");
+        document.newPage();
+        BaseFont baseFont= BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED);
+        for (VilleDto ville : villes) {
+            Phrase phrase = new Phrase(ville.toString(),new Font(baseFont,10.0f,1,new BaseColor(0,51,80)));
+            document.add(phrase);
+        }
+        document.close();
+        response.flushBuffer();
     }
 
 }

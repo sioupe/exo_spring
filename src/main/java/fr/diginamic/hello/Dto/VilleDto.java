@@ -118,4 +118,19 @@ public class VilleDto {
     public void setNomDepartement(String nomDepartement) {
         this.nomDepartement = nomDepartement;
     }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Ville ");
+        sb.append(nomVille).append(" ");
+        sb.append(" nombre d'habitant : ").append(nbHabitants);
+        sb.append(" code postale : ").append(codeDepartement);
+        sb.append(" ").append(nomDepartement);
+        sb.append("\n");
+        return sb.toString();
+    }
 }
